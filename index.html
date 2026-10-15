@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversión de medidas de longitud · Quinto de primaria</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#12263f;--sun:#ffc933;--teal:#12a0a0;--bg:#f2f6fb;--card:#fff;--ok:#1b9a5f;--bad:#d64545;--mute:#5b6b7e;--line:#d9e2ee}
+*{box-sizing:border-box}
+body{margin:0;font-family:Nunito,system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:17px}
+header{background:var(--ink);color:#fff;padding:22px 20px 0}
+.hd{max-width:900px;margin:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;padding-bottom:14px}
+h1{margin:0;font-size:clamp(22px,4.5vw,34px);font-weight:800;line-height:1.15}
+header p{margin:4px 0 0;color:#b9c7da;font-size:15px}
+.chip{background:rgba(255,255,255,.12);border-radius:99px;padding:6px 14px;font-weight:700;font-size:15px}
+.ruler{height:16px;background:repeating-linear-gradient(90deg,var(--sun) 0 2px,transparent 2px 40px) bottom/100% 16px no-repeat,repeating-linear-gradient(90deg,var(--sun) 0 1px,transparent 1px 8px) bottom/100% 8px no-repeat}
+nav{position:sticky;top:0;z-index:5;background:var(--sun);box-shadow:0 2px 8px rgba(18,38,63,.15)}
+.tabs{max-width:900px;margin:auto;display:flex;overflow-x:auto}
+.tabs button{flex:1;min-width:max-content;border:0;background:none;padding:13px 16px;font:800 15px Nunito,sans-serif;color:var(--ink);cursor:pointer;border-right:2px solid rgba(18,38,63,.25)}
+.tabs button:last-child{border-right:0}
+.tabs button.on{background:var(--ink);color:#fff}
+.tabs button:focus-visible,.btn:focus-visible,.opt:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+main{max-width:900px;margin:auto;padding:24px 16px 60px}
+section{display:none}section.on{display:block}
+h2{font-size:26px;margin:0 0 6px}h3{margin:0 0 8px;font-size:19px}
+.lead{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.card p{margin:0 0 8px}
+.btn{border:0;border-radius:10px;padding:11px 20px;font:800 16px Nunito,sans-serif;cursor:pointer;background:var(--ink);color:#fff}
+.btn.alt{background:var(--sun);color:var(--ink)}
+.btn.sm{padding:7px 14px;font-size:14px}
+.btn.ghost{background:#e8eef6;color:var(--ink)}
+input[type=text]{font:700 17px Nunito,sans-serif;padding:10px 12px;border:2px solid var(--line);border-radius:10px;width:100%;max-width:340px}
+input.num{width:110px;text-align:center;max-width:none}
+select{font:700 17px Nunito,sans-serif;padding:9px;border:2px solid var(--line);border-radius:10px;background:#fff}
+.ladder{display:flex;gap:4px;margin:14px 0 6px}
+.ladder div{flex:1;text-align:center;background:var(--ink);color:#fff;border-radius:8px;padding:10px 0 8px;font-weight:800;position:relative}
+.ladder div:nth-child(4){background:var(--teal)}
+.ladder small{display:block;font-weight:400;font-size:11px;color:#c9d6e6}
+.axis{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);font-weight:700}
+.conv{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.res{background:#eaf7f7;border-left:5px solid var(--teal);border-radius:8px;padding:12px 16px;font-weight:700;min-height:48px}
+.ex{border-left:5px solid var(--sun)}
+.ex b{color:var(--teal)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:8px}
+.opt{background:#fff;border:2px solid var(--line);border-radius:10px;padding:10px;font:700 16px Nunito,sans-serif;cursor:pointer;color:var(--ink)}
+.opt.sel{border-color:var(--teal);background:#e6f6f6}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fb{font-weight:800}.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.hint{color:var(--mute);font-size:15px;margin-top:6px}
+.count{position:sticky;top:50px;background:var(--bg);padding:8px 0;font-weight:800;color:var(--mute);z-index:2}
+.score{text-align:center;padding:28px 20px}
+.score .n{font-size:76px;font-weight:800;line-height:1;color:var(--ink)}
+.score .n span{font-size:28px;color:var(--mute)}
+.bar{height:14px;background:#e4ebf4;border-radius:99px;overflow:hidden;margin:4px 0 12px}
+.bar i{display:block;height:100%;border-radius:99px}
+.tip{border-left:5px solid var(--bad);background:#fff6f6}
+.good{border-left:5px solid var(--ok);background:#f2fbf6}
+.bl{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+@media print{header,nav,.noprint{display:none}section{display:none}#res.on{display:block}}
+@media(prefers-reduced-motion:no-preference){.bar i{transition:width .6s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div><h1>Midiendo el mundo</h1><p>Conversión de medidas de longitud · Quinto de primaria</p></div>
+    <div class="chip" id="chip">Estudiante: sin nombre</div>
+  </div>
+  <div class="ruler"></div>
+</header>
+<nav><div class="tabs" id="tabs">
+  <button data-s="inicio" class="on">Inicio</button>
+  <button data-s="teoria">Teoría</button>
+  <button data-s="taller">Taller</button>
+  <button data-s="eval">Evaluación</button>
+  <button data-s="ejer">Ejercicios</button>
+  <button data-s="res">Mi nota</button>
+</div></nav>
+<main>
+
+<section id="inicio" class="on">
+  <h2>¡Hola! Vamos a convertir medidas</h2>
+  <p class="lead">Aprenderás a pasar de kilómetros a metros, de centímetros a milímetros y mucho más.</p>
+  <div class="card">
+    <h3>Escribe tu nombre para empezar</h3>
+    <p><input type="text" id="nm" placeholder="Nombre y apellido" autocomplete="name"></p>
+    <p><button class="btn alt" id="go">Comenzar</button> <span class="fb bad" id="nmerr"></span></p>
+  </div>
+  <div class="card">
+    <h3>Ruta de trabajo</h3>
+    <p><b>Teoría:</b> lee y prueba el convertidor.</p>
+    <p><b>Taller de práctica:</b> ejemplos y ejercicios con pistas (no tienen nota).</p>
+    <p><b>Evaluación:</b> 20 preguntas de selección múltiple.</p>
+    <p><b>Ejercicios interactivos:</b> 20 actividades para resolver y comprobar.</p>
+    <p><b>Mi nota:</b> al final genera tu nota de 0,0 a 5,0 con sugerencias para mejorar.</p>
+  </div>
+</section>
+
+<section id="teoria">
+  <h2>Teoría</h2>
+  <p class="lead">La longitud nos dice qué tan largo, ancho o lejos está algo. Su unidad base es el <b>metro (m)</b>.</p>
+  <div class="card">
+    <h3>La escalera de las unidades</h3>
+    <p>Cada unidad vale <b>10 veces</b> la que está a su derecha.</p>
+    <div class="ladder">
+      <div>km<small>kilómetro</small></div><div>hm<small>hectómetro</small></div><div>dam<small>decámetro</small></div><div>m<small>metro</small></div><div>dm<small>decímetro</small></div><div>cm<small>centímetro</small></div><div>mm<small>milímetro</small></div>
+    </div>
+    <div class="axis"><span>Unidades más grandes</span><span>Unidades más pequeñas</span></div>
+  </div>
+  <div class="card">
+    <h3>Dos reglas de oro</h3>
+    <p><b>Hacia la derecha (a una unidad más pequeña): multiplica</b> por 10, 100, 1000… según los escalones que bajes.</p>
+    <p><b>Hacia la izquierda (a una unidad más grande): divide</b> por 10, 100, 1000… según los escalones que subas.</p>
+    <p class="hint">Truco: cuenta los escalones entre las dos unidades. Cada escalón es un cero (o un corrimiento de la coma).</p>
+  </div>
+  <div class="card">
+    <h3>¿Cuándo uso cada unidad?</h3>
+    <p><b>km:</b> distancia entre ciudades. <b>m:</b> el largo de un salón. <b>cm:</b> un lápiz o tu estatura. <b>mm:</b> el grosor de una moneda.</p>
+  </div>
+  <div class="card ex">
+    <h3>Ejemplos</h3>
+    <p>Pasar <b>4 km a m</b>: de km a m hay 3 escalones a la derecha, entonces 4 × 1000 = <b>4000 m</b>.</p>
+    <p>Pasar <b>250 cm a m</b>: de cm a m hay 2 escalones a la izquierda, entonces 250 ÷ 100 = <b>2,5 m</b>.</p>
+  </div>
+  <div class="card">
+    <h3>Prueba el convertidor</h3>
+    <div class="conv">
+      <input type="text" class="num" id="cv" value="3" inputmode="decimal" aria-label="Valor">
+      <select id="cf" aria-label="Unidad de origen"></select>
+      <span>a</span>
+      <select id="ct" aria-label="Unidad de destino"></select>
+    </div>
+    <div class="res" id="cres"></div>
+  </div>
+</section>
+
+<section id="taller">
+  <h2>Taller de práctica</h2>
+  <p class="lead">Practica sin presión. Si te equivocas, pide una pista y vuelve a intentar. Esta parte no cuenta para la nota.</p>
+  <div class="card ex"><h3>Ejemplo 1: 8 m a cm</h3><p>De m a cm hay 2 escalones a la derecha → multiplicas por 100 → 8 × 100 = <b>800 cm</b>.</p></div>
+  <div class="card ex"><h3>Ejemplo 2: 3000 m a km</h3><p>De m a km hay 3 escalones a la izquierda → divides por 1000 → 3000 ÷ 1000 = <b>3 km</b>.</p></div>
+  <div class="card ex"><h3>Ejemplo 3: Problema</h3><p>Una cuerda mide 2 m y se le cortan 50 cm. Primero igualas unidades: 2 m = 200 cm. Luego 200 − 50 = <b>150 cm</b>.</p></div>
+  <div id="tl"></div>
+</section>
+
+<section id="eval">
+  <h2>Evaluación</h2>
+  <p class="lead">20 preguntas. Elige una respuesta en cada una; puedes cambiarla antes de generar tu nota.</p>
+  <div class="count" id="qc">Respondidas: 0 de 20</div>
+  <div id="qs"></div>
+  <p><button class="btn alt" data-s="ejer">Ir a los ejercicios</button></p>
+</section>
+
+<section id="ejer">
+  <h2>Ejercicios interactivos</h2>
+  <p class="lead">20 actividades. Escribe tu respuesta y pulsa «Comprobar». Puedes usar coma o punto para los decimales.</p>
+  <div class="count" id="ac">Resueltas: 0 de 20</div>
+  <div id="as"></div>
+  <p><button class="btn alt" id="fin">Generar mi nota</button></p>
+</section>
+
+<section id="res">
+  <div id="rbox"><div class="card"><p>Aquí aparecerá tu nota cuando termines la evaluación y los ejercicios.</p><p><button class="btn alt" id="gen">Generar mi nota</button></p></div></div>
+</section>
+
+</main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const U=['km','hm','dam','m','dm','cm','mm'];
+const T={E:'Equivalencias entre unidades',M:'De unidad grande a pequeña (multiplicar)',D:'De unidad pequeña a grande (dividir)',C:'Comparar medidas',P:'Problemas con medidas'};
+const S={
+E:'Repasa la escalera km, hm, dam, m, dm, cm, mm. Escríbela de memoria tres veces y repite cuántos metros tiene 1 km y cuántos centímetros tiene 1 m.',
+M:'Cuenta los escalones hacia la derecha y multiplica por 10 por cada uno (100 si son 2, 1000 si son 3). Practica en el convertidor de la sección Teoría.',
+D:'Cuenta los escalones hacia la izquierda y divide. Dividir entre 10, 100 o 1000 es mover la coma 1, 2 o 3 lugares hacia la izquierda.',
+C:'Antes de comparar, convierte las dos medidas a la misma unidad. Solo así puedes decir cuál es mayor.',
+P:'Lee el problema dos veces, subraya los datos, pasa todo a una sola unidad y después haz la operación. Revisa si tu respuesta tiene sentido.'};
+const Q=[
+['¿Cuántos metros hay en 1 km?',['10','100','1000','10 000'],2,'E'],
+['¿Cuántos centímetros hay en 1 m?',['10','100','1000','60'],1,'E'],
+['¿Cuántos milímetros hay en 1 cm?',['1','10','100','1000'],1,'E'],
+['¿Cuál es la unidad más pequeña?',['km','m','cm','mm'],3,'E'],
+['¿Cuántos decímetros hay en 1 m?',['10','100','1','1000'],0,'E'],
+['Convierte 3 km a metros.',['30 m','300 m','3000 m','30 000 m'],2,'M'],
+['Convierte 5 m a centímetros.',['50 cm','500 cm','5000 cm','0,5 cm'],1,'M'],
+['Convierte 4 cm a milímetros.',['4 mm','40 mm','400 mm','0,4 mm'],1,'M'],
+['Convierte 2,5 m a centímetros.',['25 cm','250 cm','2500 cm','0,25 cm'],1,'M'],
+['Convierte 7 dm a centímetros.',['0,7 cm','7 cm','70 cm','700 cm'],2,'M'],
+['Convierte 4000 m a kilómetros.',['4 km','40 km','400 km','0,4 km'],0,'D'],
+['Convierte 600 cm a metros.',['6 m','60 m','0,6 m','6000 m'],0,'D'],
+['Convierte 80 mm a centímetros.',['0,8 cm','8 cm','80 cm','800 cm'],1,'D'],
+['Convierte 500 m a kilómetros.',['5 km','50 km','0,5 km','0,05 km'],2,'D'],
+['Convierte 90 cm a metros.',['9 m','0,9 m','0,09 m','900 m'],1,'D'],
+['¿Cuál medida es mayor: 2 m o 150 cm?',['2 m','150 cm','Son iguales','No se puede saber'],0,'C'],
+['¿Cuál medida es igual a 1 km?',['100 m','1000 m','10 000 m','100 cm'],1,'C'],
+['Un lápiz mide 18 cm. ¿Cuántos milímetros mide?',['18 mm','180 mm','1800 mm','1,8 mm'],1,'P'],
+['Ana camina 2 km en la mañana y 500 m en la tarde. ¿Cuántos metros camina en total?',['700 m','2500 m','25 000 m','2005 m'],1,'P'],
+['Una cinta de 3 m se corta en pedazos de 50 cm. ¿Cuántos pedazos salen?',['5','6','60','15'],1,'P']];
+const A=[
+['E','1 km =','m',1000],['E','1 m =','cm',100],
+['M','6 km =','m',6000],['M','9 m =','cm',900],['M','12 cm =','mm',120],['M','3 m =','mm',3000],['M','1,5 km =','m',1500],['M','0,5 m =','cm',50],
+['D','7000 m =','km',7],['D','300 cm =','m',3],['D','450 mm =','cm',45],['D','2500 m =','km',2.5],['D','25 cm =','m',0.25],
+['C','3 m','300 cm','='],['C','2 km','1500 m','>'],['C','40 mm','5 cm','<'],
+['P','Una pista mide 400 m. Si Luis le da 5 vueltas, recorre','m',2000],
+['P','Una tabla mide 2 m y se le cortan 35 cm. Quedan','cm',165],
+['P','Un camino mide 3 km. Ya recorrí 1200 m; me faltan','m',1800],
+['P','Una cinta de 1 m se corta en 4 partes iguales. Cada parte mide','cm',25]];
+const W=[['8 m =','cm',800,'De m a cm bajas 2 escalones: multiplica por 100.'],
+['2 hm =','m',200,'De hm a m bajas 2 escalones: multiplica por 100.'],
+['35 dm =','m',3.5,'De dm a m subes 1 escalón: divide entre 10.'],
+['4500 mm =','m',4.5,'De mm a m subes 3 escalones: divide entre 1000.'],
+['7,2 cm =','mm',72,'De cm a mm bajas 1 escalón: multiplica por 10.']];
+let name='',qa=Array(20).fill(null),aa=Array(20).fill('');
+const num=v=>parseFloat(String(v).trim().replace(',','.'));
+const fmt=n=>Number(n.toPrecision(12)).toLocaleString('es-CO',{maximumFractionDigits:8});
+function okA(i,v){const r=A[i][3],x=v===undefined?aa[i]:v;if(typeof r==='string')return x===r;const n=num(x);return !isNaN(n)&&Math.abs(n-r)<1e-9}
+
+/* Navegación */
+function show(id){
+  if(!name&&id!=='inicio'){$('#nmerr').textContent='Escribe tu nombre primero.';id='inicio'}
+  $$('section').forEach(s=>s.classList.toggle('on',s.id===id));
+  $$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));
+  scrollTo({top:0});
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(b)show(b.dataset.s)});
+function start(){const v=$('#nm').value.trim();if(v.length<2){$('#nmerr').textContent='Escribe tu nombre para continuar.';return}
+  name=v;$('#chip').textContent='Estudiante: '+name;$('#nmerr').textContent='';show('teoria')}
+$('#go').onclick=start;$('#nm').onkeydown=e=>{if(e.key==='Enter')start()};
+
+/* Convertidor */
+U.forEach(u=>{$('#cf').add(new Option(u,u));$('#ct').add(new Option(u,u))});
+$('#cf').value='km';$('#ct').value='m';
+function conv(){
+  const v=num($('#cv').value),a=U.indexOf($('#cf').value),b=U.indexOf($('#ct').value),s=b-a;
+  if(isNaN(v)){$('#cres').textContent='Escribe un número.';return}
+  const r=v*Math.pow(10,s),f=Math.pow(10,Math.abs(s));
+  let t=s===0?'Es la misma unidad: no cambia.':s>0?`Bajas ${s} escalón(es): multiplicas por ${f.toLocaleString('es-CO')}.`:`Subes ${-s} escalón(es): divides entre ${f.toLocaleString('es-CO')}.`;
+  $('#cres').innerHTML=`${fmt(v)} ${U[a]} = <b>${fmt(r)} ${U[b]}</b><br><small>${t}</small>`;
+}
+['#cv','#cf','#ct'].forEach(s=>$(s).addEventListener('input',conv));conv();
+
+/* Taller */
+$('#tl').innerHTML=W.map((w,i)=>`<div class="card"><div class="row"><b>${i+1}.</b> ${w[0]}
+<input type="text" class="num" inputmode="decimal" data-w="${i}" aria-label="Respuesta ${i+1}"> ${w[1]}
+<button class="btn sm" data-wc="${i}">Comprobar</button><button class="btn sm ghost" data-wh="${i}">Pista</button></div>
+<div class="fb" id="wf${i}"></div><div class="hint" id="wh${i}"></div></div>`).join('');
+document.addEventListener('click',e=>{
+  const c=e.target.dataset.wc,h=e.target.dataset.wh;
+  if(c!==undefined){const n=num($(`[data-w="${c}"]`).value),f=$('#wf'+c);
+    if(!isNaN(n)&&Math.abs(n-W[c][2])<1e-9){f.className='fb ok';f.textContent='✓ ¡Correcto!'}else{f.className='fb bad';f.textContent='✗ Aún no. Pide una pista e inténtalo otra vez.'}}
+  if(h!==undefined)$('#wh'+h).textContent=W[h][3];
+});
+
+/* Evaluación */
+$('#qs').innerHTML=Q.map((q,i)=>`<div class="card"><p><b>${i+1}.</b> ${q[0]}</p><div class="opts">${q[1].map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join('')}</div></div>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;
+  const i=+b.dataset.q;qa[i]=+b.dataset.o;b.parentNode.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',x===b));
+  $('#qc').textContent='Respondidas: '+qa.filter(x=>x!==null).length+' de 20'});
+
+/* Ejercicios */
+$('#as').innerHTML=A.map((a,i)=>{const cmp=typeof a[3]==='string';
+  const inp=cmp?`<select data-a="${i}" aria-label="Comparación ${i+1}"><option value="">?</option><option>&lt;</option><option>=</option><option>&gt;</option></select>`:`<input type="text" class="num" inputmode="decimal" data-a="${i}" aria-label="Respuesta ${i+1}">`;
+  return `<div class="card"><div class="row"><b>${i+1}.</b> <span>${a[1]}</span>${inp}<span>${a[2]}</span><button class="btn sm" data-ac="${i}">Comprobar</button><span class="fb" id="af${i}"></span></div></div>`}).join('');
+document.addEventListener('input',e=>{const i=e.target.dataset.a;if(i===undefined)return;
+  aa[i]=e.target.value.trim();$('#af'+i).textContent='';
+  $('#ac').textContent='Resueltas: '+aa.filter(x=>x!=='').length+' de 20'});
+document.addEventListener('click',e=>{const i=e.target.dataset.ac;if(i===undefined)return;
+  const f=$('#af'+i);if(aa[i]===''){f.className='fb bad';f.textContent='Escribe una respuesta.';return}
+  if(okA(+i)){f.className='fb ok';f.textContent='✓ ¡Correcto!'}else{f.className='fb bad';f.textContent='✗ Revisa e intenta otra vez'}});
+
+/* Nota */
+function gen(){
+  if(!name){show('inicio');return}
+  const miss=qa.filter(x=>x===null).length+aa.filter(x=>x==='').length;
+  if(miss&&!confirm(`Te faltan ${miss} respuestas sin contestar. ¿Quieres generar la nota de todas formas?`))return;
+  const st={};Object.keys(T).forEach(k=>st[k]={ok:0,n:0});let ok=0;
+  Q.forEach((q,i)=>{const t=st[q[3]];t.n++;if(qa[i]===q[2]){t.ok++;ok++}});
+  A.forEach((a,i)=>{const t=st[a[0]];t.n++;if(okA(i)){t.ok++;ok++}});
+  const nota=ok/40*5,ns=nota.toFixed(1).replace('.',',');
+  const msg=nota>=4.5?'¡Excelente trabajo!':nota>=4?'¡Muy bien!':nota>=3?'Aprobaste, ¡sigue mejorando!':'Necesitas reforzar este tema. ¡Tú puedes!';
+  const col=p=>p>=.7?'var(--ok)':p>=.5?'var(--sun)':'var(--bad)';
+  let h=`<div class="card score"><p>${name}</p><div class="n">${ns}<span> / 5,0</span></div><p><b>${msg}</b></p><p class="hint">${ok} de 40 respuestas correctas (20 de la evaluación y 20 de los ejercicios)</p></div>`;
+  h+='<div class="card"><h3>Resultados por tema</h3>'+Object.keys(T).map(k=>{const p=st[k].ok/st[k].n;
+    return `<div class="bl"><span>${T[k]}</span><span>${st[k].ok} de ${st[k].n}</span></div><div class="bar"><i style="width:${Math.round(p*100)}%;background:${col(p)}"></i></div>`}).join('')+'</div>';
+  const weak=Object.keys(T).filter(k=>st[k].ok/st[k].n<.7);
+  if(weak.length){h+='<h3>Dificultades observadas y cómo superarlas</h3>'+weak.map(k=>`<div class="card tip"><h3>${T[k]}</h3><p>${S[k]}</p></div>`).join('')}
+  else h+='<div class="card good"><h3>Sin dificultades importantes</h3><p>Dominas todos los temas. Reta a un compañero a explicar cómo convertir 3,5 km a centímetros.</p></div>';
+  h+='<p class="noprint"><button class="btn" onclick="print()">Imprimir resumen</button> <button class="btn ghost" data-s="eval">Revisar evaluación</button></p>';
+  $('#rbox').innerHTML=h;show('res');
+}
+$('#fin').onclick=gen;document.addEventListener('click',e=>{if(e.target.id==='gen')gen()});
+</script>
+</body>
+</html>
